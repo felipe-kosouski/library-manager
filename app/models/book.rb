@@ -14,7 +14,20 @@ class Book < ApplicationRecord
     books
   end
 
+  def self.total_count
+    count
+  end
+
+  def self.total_borrowed
+    joins(:borrowings).where(borrowings: { returned_on: nil }).count
+  end
+
   def available_copies
     total_copies - borrowings.count
   end
+
+  def is_available?
+    available_copies > 0
+  end
+
 end

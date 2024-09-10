@@ -14,6 +14,7 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 gem "devise", "~> 4.9"
 gem "cancancan"
+gem "apipie-rails"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
@@ -29,6 +30,4 @@ end
 group :test do
   gem "shoulda-matchers", "~> 6.0"
   gem 'rails-controller-testing'
-  gem "capybara"
-  gem "selenium-webdriver"
 end
