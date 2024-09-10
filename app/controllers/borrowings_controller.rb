@@ -10,11 +10,13 @@ class BorrowingsController < ApplicationController
     @borrowings = current_user.borrowings
   end
 
+  # A future implementation could be refactoring the contents of this action to a service object
+  # for better separation of concerns and to make the controller more readable
+  # Also it would allow it to be reused in the API controller.
   def create
     if current_user.has_borrow_for_book?(@book)
       redirect_to member_dashboard_path, alert: "You have already borrowed this book."
     elsif @book.is_available?
-      #extract this to a service maybe
       current_user.borrowings.create!(book: @book, user: @user, borrowed_on: Date.today, due_on: 2.weeks.from_now)
       redirect_to borrowings_path, notice: "Book borrowed successfully."
     else
@@ -22,6 +24,8 @@ class BorrowingsController < ApplicationController
     end
   end
 
+  # I would also refactor the return action contents to a separate service object for the same reasons
+  # as the create borrowing action
   def return
     @borrowing.update!(returned_on: Date.today)
     redirect_to borrowings_path, notice: "Book returned successfully."

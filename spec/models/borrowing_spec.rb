@@ -12,9 +12,9 @@ RSpec.describe Borrowing, type: :model do
   end
 
   describe '.due_today' do
-    let!(:due_today_borrowings) { create_list(:borrowing, 3, due_on: Time.zone.today, returned_on: nil) }
-    let!(:not_due_today_borrowings) { create_list(:borrowing, 2, due_on: Time.zone.today, returned_on: nil) }
-    let!(:returned_borrowings) { create_list(:borrowing, 2, due_on: Time.zone.today, returned_on: Time.zone.today) }
+    let!(:due_today_borrowings) { create_list(:borrowing, 3, due_on: Date.current, returned_on: nil) }
+    let!(:not_due_today_borrowings) { create_list(:borrowing, 2, due_on: Date.current + 1.day, returned_on: nil) }
+    let!(:returned_borrowings) { create_list(:borrowing, 2, due_on: Date.current, returned_on: Date.current + 2.weeks) }
 
     it 'returns borrowings due today' do
       expect(Borrowing.due_today).to match_array(due_today_borrowings)
@@ -30,9 +30,9 @@ RSpec.describe Borrowing, type: :model do
   end
 
   describe '.overdue' do
-    let!(:overdue_borrowings) { create_list(:borrowing, 3, due_on: Time.zone.today, returned_on: nil) }
-    let!(:not_overdue_borrowings) { create_list(:borrowing, 2, due_on: Time.zone.today, returned_on: nil) }
-    let!(:returned_borrowings) { create_list(:borrowing, 2, due_on: Time.zone.today, returned_on: Time.zone.today) }
+    let!(:overdue_borrowings) { create_list(:borrowing, 3, due_on: Date.current - 1.day, returned_on: nil) }
+    let!(:not_overdue_borrowings) { create_list(:borrowing, 2, due_on: Date.current + 1.day, returned_on: nil) }
+    let!(:returned_borrowings) { create_list(:borrowing, 2, due_on: Date.current - 1.day, returned_on: Date.current + 2.weeks) }
 
     it 'returns borrowings that are overdue' do
       expect(Borrowing.overdue).to match_array(overdue_borrowings)
