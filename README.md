@@ -50,8 +50,10 @@ Develop a web application to manage a library's book inventory and user borrowin
 | `DELETE` | `/api/v1/borrowings/:id`        | Delete a given borrowing.          |
 
 
-### Frontend (Optional)
-- ???
+### Frontend
+- There's a branch that I started that adds Vue.JS to the project. The main idea was to try to bring VueJS to the main RoR application without having a separate frontend application. The code is not finished and it's not merged to the main branch.
+- [`vue-integration`](https://github.com/felipe-kosouski/library-manager/tree/add-vue-frontend)
+
 
 ## Setup Instructions
 
@@ -105,9 +107,7 @@ Develop a web application to manage a library's book inventory and user borrowin
   ```
 
 ## Seed Data
-- The application includes seeded data for demo purposes. Use the following credentials to log in:
-    - Librarian: `librarian1@example.com` / `password`
-    - Member: `member1@example.com` / `password`
+- The application includes seeded data for demo purposes.
 
 ## Thought Process 
 - I started by defining the models and their relationships based on the requirements.
