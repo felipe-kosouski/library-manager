@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  root "dashboards#index"
+  root "books#index"
 
   resources :borrowings do
     member do
