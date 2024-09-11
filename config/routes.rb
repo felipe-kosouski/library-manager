@@ -23,8 +23,8 @@ Rails.application.routes.draw do
   end
   resources :books
 
-  get '/librarian_dashboard', to: 'dashboards#librarian'
-  get '/member_dashboard', to: 'dashboards#member'
+  get "/librarian_dashboard", to: "dashboards#librarian_dashboard"
+  get "/member_dashboard", to: "dashboards#member_dashboard"
 
   get "up" => "rails/health#show", as: :rails_health_check
 

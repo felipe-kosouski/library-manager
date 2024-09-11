@@ -1,5 +1,4 @@
-class Api::V1::BooksController < ApplicationController
-  skip_before_action :verify_authenticity_token, except: [:index, :show]
+class Api::V1::BooksController < Api::ApplicationController
   before_action :set_book, only: [:show, :update, :destroy]
 
   def_param_group :book do
@@ -25,6 +24,7 @@ class Api::V1::BooksController < ApplicationController
 
   api :GET, '/v1/books/:id', 'Retrieves a book by its ID'
   format 'json'
+  error code: 404, desc: 'Not Found'
   param :id, :number, desc: 'Book ID', required: true
   returns :book, code: :ok
   def show
@@ -34,6 +34,7 @@ class Api::V1::BooksController < ApplicationController
 
   api :POST, '/v1/books', 'Creates a new book'
   format 'json'
+  error code: 422, desc: 'Unprocessable Entity'
   param_group :book, as: :create
   returns :book, code: :created
   def create
@@ -47,6 +48,8 @@ class Api::V1::BooksController < ApplicationController
 
   api :PATCH, '/v1/books/:id', 'Updates a book'
   format 'json'
+  error code: 404, desc: 'Not Found'
+  error code: 422, desc: 'Unprocessable Entity'
   param :id, :number, desc: 'Book ID', required: true
   param_group :book, as: :update
   returns :book, code: :ok
@@ -59,6 +62,7 @@ class Api::V1::BooksController < ApplicationController
   end
 
   api :DELETE, '/v1/books/:id', 'Deletes a book'
+  error code: 404, desc: 'Not Found'
   param :id, :number, desc: 'Book ID', required: true
   returns code: :no_content
   def destroy

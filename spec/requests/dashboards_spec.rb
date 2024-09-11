@@ -22,8 +22,9 @@ RSpec.describe '/dashboards', type: :request do
       end
 
       it 'returns not authorized' do
-        get librarian_dashboard_url
-        expect(response).to have_http_status(:unauthorized)
+        expect {
+          get librarian_dashboard_url
+        }.to raise_error(CanCan::AccessDenied)
       end
     end
   end
@@ -46,8 +47,9 @@ RSpec.describe '/dashboards', type: :request do
       end
 
       it 'returns not authorized' do
-        get member_dashboard_url
-        expect(response).to have_http_status(:unauthorized)
+        expect {
+          get member_dashboard_url
+        }.to raise_error(CanCan::AccessDenied)
       end
     end
   end

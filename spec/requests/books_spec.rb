@@ -127,37 +127,43 @@ RSpec.describe '/books', type: :request do
     end
 
     describe 'GET /books/new' do
-      it 'returns not authorized status' do
-        get new_book_url
-        expect(response).to have_http_status(:unauthorized)
+      it 'raises Access Denied exception' do
+        expect {
+          get new_book_url
+        }.to raise_error(CanCan::AccessDenied)
       end
     end
 
     describe 'GET /books/:id/edit' do
-      it 'returns not authorized status' do
-        get edit_book_url(books.first)
-        expect(response).to have_http_status(:unauthorized)
+      it 'raises Access Denied exception' do
+        expect {
+          get edit_book_url(books.first)
+        }.to raise_error(CanCan::AccessDenied)
+
       end
     end
 
     describe 'POST /books' do
-      it 'returns not authorized status' do
-        post books_url, params: { book: { title: 'New Book', author: 'New Author', genre: 'New Genre', isbn: 'New ISBN', total_copies: 5 } }
-        expect(response).to have_http_status(:unauthorized)
+      it 'raises Access Denied exception' do
+        expect {
+          post books_url, params: { book: { title: 'New Book', author: 'New Author', genre: 'New Genre', isbn: 'New ISBN', total_copies: 5 } }
+        }.to raise_error(CanCan::AccessDenied)
       end
     end
 
     describe 'PUT /books/:id' do
-      it 'returns not authorized status' do
-        put book_url(books.first), params: { book: { title: 'Updated Title' } }
-        expect(response).to have_http_status(:unauthorized)
+      it 'raises Access Denied exception' do
+        expect {
+          put book_url(books.first), params: { book: { title: 'Updated Title' } }
+        }.to raise_error(CanCan::AccessDenied)
       end
     end
 
     describe 'DELETE /books/:id' do
-      it 'returns not authorized status' do
-        delete book_url(books.first)
-        expect(response).to have_http_status(:unauthorized)
+      it 'raises Access Denied exception' do
+        expect {
+          delete book_url(books.first)
+        }.to raise_error(CanCan::AccessDenied)
       end
     end
   end

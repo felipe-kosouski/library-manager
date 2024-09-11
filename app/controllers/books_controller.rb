@@ -1,7 +1,6 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:index, :show]
-  before_action :authorize_librarian!, except: [:index, :show]
+  load_and_authorize_resource
 
   def index
     search_params = params.slice(:title, :author, :genre)

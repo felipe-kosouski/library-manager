@@ -1,10 +1,8 @@
-class Api::V1::BorrowingsController < ApplicationController
+class Api::V1::BorrowingsController < Api::ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :set_book, only: [:create]
   before_action :set_user, only: [:create]
   before_action :set_borrowing, only: [:show, :update, :destroy, :return]
-  # before_action :authenticate_user!
-  # before_action :authorize_librarian!, only: [:return]
 
   def_param_group :borrowing do
     property :id, Integer, desc: 'Borrowing ID'
@@ -23,6 +21,7 @@ class Api::V1::BorrowingsController < ApplicationController
 
   api :GET, '/v1/borrowings/:id', 'Retrieves a borrowing by its ID'
   format 'json'
+  error code: 404, desc: 'Not Found'
   param :id, :number, desc: 'Borrowing ID', required: true
   returns :borrowing, code: :ok
   def show
@@ -31,14 +30,13 @@ class Api::V1::BorrowingsController < ApplicationController
 
   api :POST, '/v1/borrowings', 'Creates a new borrowing'
   format 'json'
+  error code: 422, desc: 'Unprocessable Entity'
   param_group :borrowing, as: :create
   returns :borrowing, code: :created
   def create
-    # if current_user.has_borrow_for_book?(@book)
     if @user.has_borrow_for_book?(@book)
       render json: { message: "You have already borrowed this book." }, status: :unprocessable_content
     elsif @book.is_available?
-      # current_user.borrowings.create!(book: @book, user: @user, borrowed_on: Time.zone.today, due_on: 2.week.from_now)
       borrowing = @user.borrowings.create!(book: @book, user: @user, borrowed_on: Time.zone.today, due_on: 2.week.from_now)
       render json: { borrowing: borrowing, message: "Book borrowed successfully." }, status: :created
     else
@@ -46,8 +44,13 @@ class Api::V1::BorrowingsController < ApplicationController
     end
   end
 
+  # A future implementation could be adding an option to renew a borrowing. This can be achieve now by
+  # updating the due_on date of the borrowing.
+  # However, a better implementation would be to add a renew action to the borrowing controller
   api :PATCH, '/v1/borrowings/:id', 'Updates a borrowing'
   format 'json'
+  error code: 404, desc: 'Not Found'
+  error code: 422, desc: 'Unprocessable Entity'
   param :id, :number, desc: 'Borrowing ID', required: true
   param_group :borrowing, as: :update
   returns :borrowing, code: :ok
@@ -60,6 +63,7 @@ class Api::V1::BorrowingsController < ApplicationController
   end
 
   api :DELETE, '/v1/borrowings/:id', 'Deletes a borrowing'
+  error code: 404, desc: 'Not Found'
   param :id, :number, desc: 'Borrowing ID', required: true
   returns code: :no_content
   def destroy
@@ -69,6 +73,7 @@ class Api::V1::BorrowingsController < ApplicationController
 
   api :PATCH, '/v1/borrowings/:id/return', 'Returns a borrowing'
   format 'json'
+  error code: 404, desc: 'Not Found'
   param :id, :number, desc: 'Borrowing ID', required: true
   returns code: :ok
   def return
