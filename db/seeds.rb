@@ -1,10 +1,10 @@
 # Create Librarian Users
-librarian1 = User.create!(email: 'librarian1@example.com', password: 'password', role: 'librarian')
-librarian2 = User.create!(email: 'librarian2@example.com', password: 'password', role: 'librarian')
+librarian1 = User.create!(name: "Joseph Climber", email: 'librarian1@example.com', password: 'password', role: 'librarian')
+librarian2 = User.create!(name: "Hending", email: 'librarian2@example.com', password: 'password', role: 'librarian')
 
 # Create Member Users
-member1 = User.create!(email: 'member1@example.com', password: 'password', role: 'member')
-member2 = User.create!(email: 'member2@example.com', password: 'password', role: 'member')
+member1 = User.create!(name: "Eöl", email: 'member1@example.com', password: 'password', role: 'member')
+member2 = User.create!(name: "Wilcome", email: 'member2@example.com', password: 'password', role: 'member')
 
 # Create Books
 book1 = Book.create!(title: 'Book One', author: 'Author One', genre: 'Fiction', isbn: '1234567890', total_copies: 5)

@@ -1,25 +1,24 @@
 version: '3.8'
 
 services:
-  #  web:
-  #    depends_on:
-  #      - 'db'
-  #    build: .
-  #    volumes:
-  #      - .:/app
-  #    ports:
-  #      - "3000:3000"
-  #    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
-  #    links:
-  #      - mailcatcher
-  #    tmpfs:
-  #      - /tmp
-  #    environment:
-  #      RAILS_ENV: "development"
-  #      DATABASE_HOST: "db"
-  #      DATABASE_USER: "postgres"
-  #      DATABASE_PASSWORD: "postgres"
-  #      DATABASE_PORT: "5432"
+  web:
+    depends_on:
+      - 'db'
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    tmpfs:
+      - /tmp
+    environment:
+      RAILS_ENV: "development"
+      DATABASE_HOST: "db"
+      DATABASE_USER: "postgres"
+      DATABASE_PASSWORD: "postgres"
+      DATABASE_PORT: "5432"
+    restart: always
 
   db:
     image: postgres
@@ -29,12 +28,7 @@ services:
       - '5432:5432'
     environment:
       POSTGRES_PASSWORD: "postgres"
-
-#  mailcatcher:
-#    image: yappabe/mailcatcher
-#    ports:
-#      - "1025:1025"
-#      - "1080:1080"
+    restart: always
 
 volumes:
   pgdata:

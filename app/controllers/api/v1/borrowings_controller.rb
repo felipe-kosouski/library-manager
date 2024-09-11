@@ -1,5 +1,4 @@
 class Api::V1::BorrowingsController < Api::ApplicationController
-  skip_before_action :verify_authenticity_token
   before_action :set_book, only: [:create]
   before_action :set_user, only: [:create]
   before_action :set_borrowing, only: [:show, :update, :destroy, :return]
