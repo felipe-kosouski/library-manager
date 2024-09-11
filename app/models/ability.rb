@@ -14,6 +14,7 @@ class Ability
       can :return, Borrowing
       can :librarian_dashboard, :dashboard
     elsif user.member?
+      can :read, Borrowing
       can :create, Borrowing
       can :read, Book
       can :member_dashboard, :dashboard

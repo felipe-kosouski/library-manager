@@ -3,6 +3,7 @@ class BorrowingsController < ApplicationController
   before_action :set_book, only: [:create]
   before_action :set_user, only: [:create]
   before_action :set_borrowing, only: [:return]
+  load_and_authorize_resource
 
   def index
     @borrowings = current_user.borrowings

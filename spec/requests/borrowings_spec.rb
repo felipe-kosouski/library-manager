@@ -72,8 +72,9 @@ RSpec.describe '/borrowings', type: :request do
 
     context 'when the user is not a librarian' do
       it 'returns not authorized status' do
-        patch return_borrowing_url(borrowing)
-        expect(response).to have_http_status(:unauthorized)
+        expect {
+          patch return_borrowing_url(borrowing)
+        }.to raise_error(CanCan::AccessDenied)
         expect(borrowing.returned_on).to be_nil
       end
     end
