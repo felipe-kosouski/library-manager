@@ -24,6 +24,7 @@ Develop a web application to manage a library's book inventory and user borrowin
 - **Member**: A dashboard showing books they've borrowed, their due dates, and any overdue books.
 
 ### API Endpoints
+- Complete documentation can be found under `http://localhost:3000/apipie`
 - API endpoints are under `/api/v1`
 - API endpoints were implemented for the following actions: 
 
@@ -61,8 +62,9 @@ Develop a web application to manage a library's book inventory and user borrowin
 
 ## Local
 
-### Ruby Version
-- Ensure you have Ruby installed. This project uses Ruby version specified in the `Gemfile`.
+### Ruby and Rails Version
+- Ensure you have Ruby 3.3.0 installed.
+- Ensure you have Rails 7.1.4 installed.
 
 ### System Dependencies
 - Install dependencies using Bundler and Yarn:
@@ -105,6 +107,7 @@ Develop a web application to manage a library's book inventory and user borrowin
   ```sh
   bundle exec rspec
   ```
+- Test coverage report can be found in the `coverage` folder. 
 
 ## Seed Data
 - The application includes seeded data for demo purposes.
@@ -118,11 +121,14 @@ Develop a web application to manage a library's book inventory and user borrowin
 - Implemented the dashboard for Librarian and Member users.
 - Implemented API endpoints for Books and Borrowings.
 - Implemented the authorization logic using Cancancan.
-- Implemented and fixed more tests.
+- Added and fixed more tests.
 
 ## Future Improvements
-- Implement frontend using Vue.
+- Implement complete frontend using Vue.
 - Add more features like pagination, and sorting.
 - Add more tests for edge cases.
 - Extract some of the code for borrowing and retuning a book to service objects (left some comments about this in the code).
 - Implement JWT authentication for the API.
+- Add Serializers for the API so we can return more specific and complete data.
+- Add redis and Sidekiq for background jobs, such as triggering reminder emails.
+- Add a renewal borrowing feature.
