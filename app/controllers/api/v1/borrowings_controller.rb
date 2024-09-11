@@ -30,6 +30,7 @@ class Api::V1::BorrowingsController < Api::ApplicationController
   api :POST, '/v1/borrowings', 'Creates a new borrowing'
   format 'json'
   error code: 422, desc: 'Unprocessable Entity'
+  error code: 404, desc: 'Not Found'
   param_group :borrowing, as: :create
   returns :borrowing, code: :created
   def create
