@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
   apipie
+  root "books#index"
+
+  namespace :admin do
+    resources :users
+    resources :books
+  end
 
   namespace :api do
     namespace :v1 do
@@ -14,15 +20,14 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  root "dashboards#index"
-
   resources :borrowings do
     member do
       patch :return
     end
   end
-  resources :books
+  resources :books, only: %i[index show]
 
+  get "/dashboard", to: "dashboards#index"
   get "/librarian_dashboard", to: "dashboards#librarian_dashboard"
   get "/member_dashboard", to: "dashboards#member_dashboard"
 

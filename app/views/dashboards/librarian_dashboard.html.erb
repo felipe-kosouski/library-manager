@@ -1,0 +1,33 @@
+<div class="p-4">
+  <h1 class="text-3xl font-bold mb-6 text-blue-700">Librarian Dashboard</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="bg-white shadow-md rounded-lg p-6">
+      <h2 class="text-xl font-semibold mb-2">Total Books</h2>
+      <p class="text-gray-700 text-2xl"><%= @total_books %></p>
+    </div>
+
+    <div class="bg-white shadow-md rounded-lg p-6">
+      <h2 class="text-xl font-semibold mb-2">Total Borrowed Books</h2>
+      <p class="text-gray-700 text-2xl"><%= @total_borrowed_books %></p>
+    </div>
+
+    <div class="bg-white shadow-md rounded-lg p-6">
+      <h2 class="text-xl font-semibold mb-2">Books Due Today</h2>
+      <ul class="list-disc list-inside text-gray-700">
+        <% @books_due_today.each do |book| %>
+          <li><%= book.title %> by <%= book.author %></li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="bg-white shadow-md rounded-lg p-6 col-span-1 md:col-span-2 lg:col-span-3">
+      <h2 class="text-xl font-semibold mb-2">Members with Overdue Books</h2>
+      <ul class="list-disc list-inside text-gray-700">
+        <% @members_with_overdue_books.each do |member| %>
+          <li><%= member.name %> (<%= member.email %>)</li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

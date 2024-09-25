@@ -15,6 +15,7 @@ gem "bootsnap", require: false
 gem "devise", "~> 4.9"
 gem "cancancan"
 gem "apipie-rails"
+gem "tailwindcss-rails", "~> 2.7"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]

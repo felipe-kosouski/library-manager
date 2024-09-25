@@ -1,7 +1,10 @@
 class DashboardsController < ApplicationController
-  authorize_resource class: false
+  authorize_resource class: false, except: [:index]
 
   def index
+    if user_signed_in?
+      redirect_to current_user.librarian? ? librarian_dashboard_path : member_dashboard_path
+    end
   end
 
   def librarian_dashboard

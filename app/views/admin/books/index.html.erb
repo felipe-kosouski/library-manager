@@ -1,0 +1,28 @@
+<div class="container mx-auto p-4">
+  <h1 class="text-3xl font-bold mb-4">Admin Book Management</h1>
+  <%= link_to 'New Book', new_admin_book_path, class: "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mb-4 inline-block" %>
+  <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+    <thead>
+    <tr>
+      <th class="py-2 px-4 bg-gray-200 text-left text-gray-600 font-bold">Title</th>
+      <th class="py-2 px-4 bg-gray-200 text-left text-gray-600 font-bold">Author</th>
+      <th class="py-2 px-4 bg-gray-200 text-left text-gray-600 font-bold">Genre</th>
+      <th class="py-2 px-4 bg-gray-200 text-left text-gray-600 font-bold">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @books.each do |book| %>
+      <tr class="border-b">
+        <td class="py-2 px-4"><%= book.title %></td>
+        <td class="py-2 px-4"><%= book.author %></td>
+        <td class="py-2 px-4"><%= book.genre %></td>
+        <td class="py-2 px-4">
+          <%= link_to 'Show', admin_book_path(book), class: "text-blue-500 hover:text-blue-700" %>
+          <%= link_to 'Edit', edit_admin_book_path(book), class: "text-yellow-500 hover:text-yellow-700 ml-2" %>
+          <%= link_to 'Destroy', admin_book_path(book), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "text-red-500 hover:text-red-700 ml-2" %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
